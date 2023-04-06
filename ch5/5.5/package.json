@@ -1,0 +1,11 @@
+{
+  "name": "npmtest-3047",
+  "version": "1.0.0",
+  "description": "hello pacakge.json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
