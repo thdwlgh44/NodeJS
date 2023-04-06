@@ -1,0 +1,3 @@
+exports.afterUploadImage = (req, res) => {
+
+}
