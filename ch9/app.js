@@ -16,6 +16,8 @@ dotenv.config({path: path.join(__dirname, '/.env')});
 //process.env.COOKIE_SECRET 있음
 const pageRouter = require('./routes/page.js');
 const authRouter = require('./routes/auth');
+const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
 const passportConfig = require('./passport');
 
 const app = express();
@@ -38,6 +40,7 @@ sequelize.sync({ force: false })
 
 app.use(morgan('dev')); //'dev'는 개발모드로 자세히 로깅, 'combined'는 운영에 필요한 최소한의 로깅 => 실제 서버 공간을 많이 차지하므로 선택을 잘 해야 한다.
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json()); // req.body를 ajax json 요청으로부터
 app.use(express.urlencoded({ extended: false})); // req.body 폼으로부터
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -55,6 +58,8 @@ app.use(passport.session()); // connect.sid 라는 이름으로 세션 쿠키가
 
 app.use('/', pageRouter);
 app.use('/auth', authRouter);
+app.use('/post', postRouter);
+app.use('/user', userRouter);
 
 app.use((req, res, next) => { // 404 NOT FOUND
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
